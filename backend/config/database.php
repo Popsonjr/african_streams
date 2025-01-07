@@ -1,7 +1,9 @@
 <?php
-require __DIR__ . '../vendor/autoload.php';
+// require __DIR__ . "/../vendor/autoload.php";
+// require "../../vendor/autoload.php";
 
-use Dotenv\Dotenv;
+
+// use Dotenv\Dotenv;
 
 
 class Database {
@@ -13,15 +15,20 @@ class Database {
     
     public function __construct()
     {
+        require "config.php";
         //Load environment variables
-        $dotenv = Dotenv::createImmutable(__DIR__);
-        $dotenv->load();
+        // $dotenv = Dotenv::createImmutable("../../");
+        // $dotenv->load();
 
-        $this->host = $_ENV['DB_HOST'];
-        $this->username = $_ENV['DB_USER'];
-        $this->password = $_ENV['DB_PASS'];
-        $this->database = $_ENV['DB_NAME'];
-
+        // $this->host = $_ENV['DB_HOST'];
+        // $this->username = $_ENV['DB_USER'];
+        // $this->password = $_ENV['DB_PASS'];
+        // $this->database = $_ENV['DB_NAME'];
+        echo $DB_HOST;
+        $this->host = $DB_HOST;
+        $this->username = $DB_USER;
+        $this->password = $DB_PASS;
+        $this->database = $DB_NAME;
         $this->getConnection();
     }
 
@@ -39,7 +46,6 @@ class Database {
         } catch (PDOException $e) {
             die("Database connection failed: " . $e->getMessage());
         }
-
         return $this->pdo;
     }
 }
